@@ -3,11 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 
-public class Tile : MonoBehaviour {
-	
-
+public class Tile : MonoBehaviour 
+{
 	private SpriteRenderer render;
-	
+
 	private Vector2[] adjacentDirections = new Vector2[] { Vector2.up, Vector2.down, Vector2.left, Vector2.right };
 
 	private bool isSelected;	
@@ -78,19 +77,11 @@ public class Tile : MonoBehaviour {
 			return;
 		}
 
-			Sprite tempSprite = render2.sprite;
-			render2.sprite = render.sprite;
-			render.sprite = tempSprite;
+		Sprite tempSprite = render2.sprite;
+		render2.sprite = render.sprite;
+		render.sprite = tempSprite;
 		SFXManager.instance.PlaySFX(Clip.Swap);
-		/*if (isUnswap)
-		{
-			Debug.Log("da");
-			tempSprite = render.sprite;
-			render.sprite = render2.sprite;
-			render2.sprite = tempSprite;
-			isUnswap = false;
-		}*/
-			
+		GUIManager.instance.MoveCounter--;
 	}
 	private GameObject GetAdjacent(Vector2 castDir)
 	{
@@ -136,6 +127,7 @@ public class Tile : MonoBehaviour {
 		}
 		if (matchingTiles.Count >= 2) 
 		{
+			Instantiate(BoardGenerate.instance.particle, matchingTiles[1].transform.position, Quaternion.identity);
 			for (int i = 0; i < matchingTiles.Count; i++) 
 			{
 				matchingTiles[i].GetComponent<SpriteRenderer>().sprite = null;
@@ -150,7 +142,8 @@ public class Tile : MonoBehaviour {
 			return;
 
 		ClearMatch(new Vector2[2] { Vector2.left, Vector2.right });
-		ClearMatch(new Vector2[2] { Vector2.up, Vector2.down });
+		ClearMatch(new Vector2[2] { Vector2.up, Vector2.down }); 
+		
 		if (matchFound)
 		{
 			render.sprite = null;

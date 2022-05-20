@@ -12,6 +12,7 @@ public class BoardGenerate : MonoBehaviour
 	[SerializeField] private GameObject gameObject;
 	[SerializeField] private int xSize, ySize;
 	[SerializeField] private int characterBadSize = 3;
+	 public GameObject particle;
 
 	private GameObject[,] tiles;
 	private GameObject[,] badTiles;
